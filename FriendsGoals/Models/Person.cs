@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PartyInvites.Models
+namespace FriendsGoals.Models
 {
 
-    public class GuestResponse
+    public class Profile
     {
 
         [Required(ErrorMessage = "Please enter your name")]
@@ -18,6 +18,6 @@ namespace PartyInvites.Models
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "Please specify whether you'll attend")]
-        public bool? WillAttend { get; set; }
+        public bool? Sex { get; set; }
     }
 }
