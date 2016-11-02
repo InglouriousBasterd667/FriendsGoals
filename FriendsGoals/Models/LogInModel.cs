@@ -14,7 +14,7 @@ namespace FriendsGoals.Models
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [HiddenInput]
+            [HiddenInput(DisplayValue = false)]
             public string ReturnUrl { get; set; }
         }
     
