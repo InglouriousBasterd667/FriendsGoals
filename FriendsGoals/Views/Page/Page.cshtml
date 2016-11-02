@@ -4,5 +4,9 @@
     ViewBag.Title = "Page";
 }
 
-<h2>Hello, @Model.Surname, it is a prototype of your own page!</h2>
+@{ 
+    //model surname doesnt work
+}
+
+<h2>Hello, @Model.Surname @CurrentUser.Name, it is a prototype of your own page!</h2>
 
