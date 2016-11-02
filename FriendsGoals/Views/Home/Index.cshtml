@@ -13,7 +13,11 @@
     <div>
         <h2>Home</h2> 
         <p>
-            Hello @User.Identity.Name
+            Hello @CurrentUser.Name . You are from @CurrentUser.Country
+
+        <p>
+            <a href="@Url.Action("logout", "auth")">Log Out</a>
+        </p>
         </p>
     </div>
 </body>

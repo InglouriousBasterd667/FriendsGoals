@@ -7,9 +7,13 @@ using FriendsGoals.Models;
 
 namespace FriendsGoals.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AppController
     {
-        public ActionResult Index() => View();
+        public ActionResult Index()
+        {
+            
+            return View();
+        }
         
     }
 }

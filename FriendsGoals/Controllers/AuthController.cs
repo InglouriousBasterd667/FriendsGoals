@@ -40,7 +40,7 @@ namespace FriendsGoals.Controllers
                 new Claim(ClaimTypes.Email, "a@b.com"),
                 new Claim(ClaimTypes.Country, "England")
             },
-                    "ApplicationCookie");
+                    DefaultAuthenticationTypes.ApplicationCookie);
 
                 var ctx = Request.GetOwinContext();
                 var authManager = ctx.Authentication;
@@ -53,6 +53,15 @@ namespace FriendsGoals.Controllers
             // user authN failed
             ModelState.AddModelError("", "Invalid email or password");
             return View();
+        }
+
+        public ActionResult LogOut()
+        {
+            var ctx = Request.GetOwinContext();
+            var authManager = ctx.Authentication;
+
+            authManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("index", "home");
         }
 
         private string GetRedirectUrl(string returnUrl)
