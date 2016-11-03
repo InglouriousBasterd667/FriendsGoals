@@ -13,8 +13,7 @@ namespace FriendsGoals.Models
         public string Surname { get; set; }
 
         [Required(ErrorMessage = "Please enter your email address")]
-        [RegularExpression(".+\\@.+\\..+",
-            ErrorMessage = "Please enter a valid email address")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required]
@@ -29,7 +28,7 @@ namespace FriendsGoals.Models
         [Required(ErrorMessage = "Please enter your phone number")]
         public string Phone { get; set; }
 
-        [Required(ErrorMessage = "Please specify whether you'll attend")]
+        [Required(ErrorMessage = "Please enter your sex")]
         public bool? Sex { get; set; }
     }
 }
