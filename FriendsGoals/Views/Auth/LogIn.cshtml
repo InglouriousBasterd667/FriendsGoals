@@ -4,15 +4,32 @@
     Layout = null;
 }
 
-<h2>LogIn</h2>
+<html>
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="log-in-body">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                @Html.ActionLink("FriendsGoals", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+        </div>
+    </div>
+    <div class="log-in-block">
+        <h3>Log In</h3>
 
-@Html.ValidationSummary(true)
+        @Html.ValidationSummary(true)
 
-@using (Html.BeginForm())
-{
-    @Html.EditorForModel()
-    <br/>
-    <p>
-        <button class="btn btn-success" type="submit">Log In</button>
-    </p>
-}
+        @using (Html.BeginForm())
+        {
+            @Html.EditorForModel()
+            <br />
+            <p>
+                <button class="btn btn-success" type="submit">Log In</button>
+            </p>
+        }
+    </div>
+</body>
+</html>

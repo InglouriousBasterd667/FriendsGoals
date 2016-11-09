@@ -37,3 +37,33 @@ textarea {
 .validation-summary-valid {
     display: none;
 }
+
+.log-in-body {
+    background-color: #fafafa;
+}
+
+.log-in-block {
+    display: block;
+    min-width: 200px;
+    max-width: 300px;
+    min-height: 230px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding: 10px;
+    background-color: #ffffff;
+    margin: 10px auto;
+    border: 1px solid grey;
+}
+
+.full-name {
+    font-size: 25px;
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: aliceblue;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.user-image {
+    display: block;
+    width: 200px;
+}

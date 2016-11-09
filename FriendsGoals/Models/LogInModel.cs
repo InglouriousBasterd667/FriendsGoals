@@ -6,11 +6,11 @@ namespace FriendsGoals.Models
     
         public class LogInModel
         {
-            [Required]
+            [Required(ErrorMessage = " ")]
             [DataType(DataType.EmailAddress)]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = " ")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
