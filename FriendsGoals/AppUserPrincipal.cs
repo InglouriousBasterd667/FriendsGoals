@@ -24,5 +24,15 @@ namespace FriendsGoals
             }
 
         }
+
+        public string GivenName
+        {
+            get
+            {
+                return this.FindFirst(ClaimTypes.GivenName).Value;
+            }
+
+        }
+
+        }
     }
-}

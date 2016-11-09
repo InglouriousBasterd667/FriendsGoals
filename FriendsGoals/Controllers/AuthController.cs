@@ -87,7 +87,10 @@ namespace FriendsGoals.Controllers
         {
             var identity = await userManager.CreateIdentityAsync(
                 user, DefaultAuthenticationTypes.ApplicationCookie);
+            //Here you can add any type of fields to current user.
+            //Then go to appUserPrincipal and add new field
             identity.AddClaim(new Claim(ClaimTypes.Surname, user.UserSurname));
+            identity.AddClaim(new Claim(ClaimTypes.GivenName, user.Name));
             GetAuthenticationManager().SignIn(identity);
         }
 
@@ -122,7 +125,6 @@ namespace FriendsGoals.Controllers
                 Name = model.Name,
                 Phone = model.Phone,
                 Sex = (bool)model.Sex,
-
             };
 
             var result = await userManager.CreateAsync(user, model.Password);
