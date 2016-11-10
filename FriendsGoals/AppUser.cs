@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using FriendsGoals.Models;
+using System.Collections.Generic;
 
 namespace FriendsGoals
 {
@@ -8,7 +10,7 @@ namespace FriendsGoals
         public string UserSurname { get; set; }
         public string Phone { get; set; }
         public bool Sex { get; set; }
-
-
+		//public List<ProfileModel> Friends { get; set; }
+		//public List<Message> Messages { get; set; }
     }
 }

@@ -5,8 +5,7 @@ namespace FriendsGoals
 {
     public class AppDbContext : IdentityDbContext<AppUser>
     {
-        public AppDbContext()
-            : base("AppDatabase")
+        public AppDbContext() : base("AppDatabase")
         {
         }
     }

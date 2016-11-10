@@ -1,0 +1,23 @@
+﻿@model FriendsGoals.Models.ProfileModel
+
+@{
+    ViewBag.Title = CurrentUser.GivenName + " " + CurrentUser.Surname;
+}
+
+@{
+//model surname doesnt work
+}
+<div class="full-name text-info"><p>@CurrentUser.GivenName @CurrentUser.Surname</p></div>
+<div class="user-info-block">
+    <div class="user-image user-info-part">
+        <a href="">
+            <img src="https://pp.vk.me/c604716/v604716378/caaf/WrjTyvFd9Gw.jpg" width="200" />
+        </a>
+    </div>
+    <div class="user-info user-info-part">
+        <p>Phone: @CurrentUser.Phone</p>
+        <p>Sex: @CurrentUser.Sex</p>
+    </div>
+</div>
+<h2>Hello, @CurrentUser.GivenName, it is a prototype of your own page!</h2>
+

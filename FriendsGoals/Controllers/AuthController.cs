@@ -91,6 +91,8 @@ namespace FriendsGoals.Controllers
             //Then go to appUserPrincipal and add new field
             identity.AddClaim(new Claim(ClaimTypes.Surname, user.UserSurname));
             identity.AddClaim(new Claim(ClaimTypes.GivenName, user.Name));
+			identity.AddClaim(new Claim(ClaimTypes.MobilePhone, user.Phone));
+			identity.AddClaim(new Claim(ClaimTypes.Gender, user.Sex ? "Male" : "Female"));
             GetAuthenticationManager().SignIn(identity);
         }
 

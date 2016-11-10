@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace FriendsGoals.Models
 {
@@ -30,5 +31,8 @@ namespace FriendsGoals.Models
 
         [Required(ErrorMessage = "Please enter your sex")]
         public bool? Sex { get; set; }
+
+		//public List<ProfileModel> Friends { get; set; }
+		//public List<Message> Messages { get; set; }
     }
 }

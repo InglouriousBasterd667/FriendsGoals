@@ -10,10 +10,11 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 </head>
 <body class="log-in-body">
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
+            <div class="">
                 @Html.ActionLink("FriendsGoals", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Register", "NewUser", "Auth", new { area = "" }, new { @class = "reg-btn" })
             </div>
         </div>
     </div>

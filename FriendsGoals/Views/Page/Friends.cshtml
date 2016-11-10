@@ -1,7 +1,7 @@
-﻿
+﻿@model FriendsGoals.Models.ProfileModel
 @{
-    ViewBag.Title = "Friends";
+    ViewBag.Title = "Friends of " + Model.Name + " " + Model.Surname;
 }
 
-<h2>Friends</h2>
+<h2>Friends of @Model.Name @Model.Surname</h2>
 

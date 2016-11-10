@@ -2,8 +2,7 @@
 using System.Web.Mvc;
 
 namespace FriendsGoals.Models
-{
-    
+{    
         public class LogInModel
         {
             [Required(ErrorMessage = " ")]
@@ -17,5 +16,4 @@ namespace FriendsGoals.Models
             [HiddenInput(DisplayValue = false)]
             public string ReturnUrl { get; set; }
         }
-    
 }

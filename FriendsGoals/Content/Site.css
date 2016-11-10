@@ -66,4 +66,33 @@ textarea {
 .user-image {
     display: block;
     width: 200px;
+    float: left;
+}
+
+.user-info-block {
+    background-color: aliceblue;
+}
+
+.user-info {
+    margin-left: 210px;
+    padding: 10px 10px;
+    min-height: 200px;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    
+}
+
+.reg-btn {
+    float: right;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+    color: #b9b9b9;
+}
+
+.reg-btn:hover,
+.reg-btn:focus {
+  text-decoration: none;
+  color: #fff;
 }

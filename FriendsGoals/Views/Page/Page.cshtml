@@ -1,17 +1,17 @@
 ﻿@model FriendsGoals.Models.ProfileModel
 
 @{
-    ViewBag.Title = @CurrentUser.GivenName + " " + "Vashchilko";
+    ViewBag.Title = Model.Name + " " + Model.Surname;
 }
 
 @{ 
 //model surname doesnt work
 }
-<div class="full-name text-info"><p>@CurrentUser.GivenName Vashchilko</p></div>
+<div class="full-name text-info"><p>@Model.Name @Model.Surname</p></div>
 <div class="user-image">
     <a href="">
         <img src="https://pp.vk.me/c604716/v604716378/caaf/WrjTyvFd9Gw.jpg" width="200" />
     </a>
 </div>
-<h2>Hello, @CurrentUser.GivenName, it is a prototype of your own page!</h2>
+<h2>Hello, it is a prototype of @Model.Name's own page!</h2>
 
