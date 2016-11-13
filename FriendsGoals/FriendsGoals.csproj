@@ -201,9 +201,14 @@
     <Content Include="scripts\ai.0.22.19-build00125.min.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\chat.js" />
+    <Content Include="scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Views\Page\MyPage.cshtml" />
     <Content Include="Views\Page\MyFriends.cshtml" />
     <Content Include="Views\Page\AllUsers.cshtml" />
+    <Content Include="Views\Page\ChatRoom.cshtml" />
+    <Content Include="Views\Page\History.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -243,6 +248,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ChatMessage.cs" />
+    <Compile Include="Models\ChatModel.cs" />
+    <Compile Include="Models\ChatUser.cs" />
     <Compile Include="Models\LogInModel.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\ProfileModel.cs" />
