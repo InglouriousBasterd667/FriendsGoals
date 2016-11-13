@@ -203,6 +203,7 @@
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="Views\Page\MyPage.cshtml" />
     <Content Include="Views\Page\MyFriends.cshtml" />
+    <Content Include="Views\Page\AllUsers.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

@@ -32,6 +32,7 @@ namespace FriendsGoals.Models
         [Required(ErrorMessage = "Please enter your sex")]
         public bool? Sex { get; set; }
 
+        public virtual ICollection<ProfileModel> Friends { get; set; }
 		//public List<ProfileModel> Friends { get; set; }
 		//public List<Message> Messages { get; set; }
     }
