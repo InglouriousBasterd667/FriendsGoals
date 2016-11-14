@@ -1,7 +1,31 @@
-﻿
-@{
-    ViewBag.Title = "Messages";
-}
+﻿@model FriendsGoals.Models.ChatModel
 
-<h2>Messages</h2>
-
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Чат на Ajax и JQuery</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/scripts/jquery-1.10.2.js"></script>
+    <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/scripts/chat.js"></script>
+</head>
+<body>
+    <div id="Username">
+    </div>
+    <div id="LastRefresh">
+    </div>
+    <div id="container">
+        <div id="loginBlock">
+            Введите имя :
+            <input type="text" id="txtUserName" />
+            <button id="btnLogin" value="Войти">Войти</button>
+        </div>
+    </div>
+    <div id="Error">
+    </div>
+    @Ajax.ActionLink("Login", "Messages", new { user = "" },
+        new AjaxOptions { UpdateTargetId = "container", OnFailure = "LoginOnFailure", OnSuccess = "LoginOnSuccess" },
+        new { @id = "LoginButton" })
+</body>
+</html>
