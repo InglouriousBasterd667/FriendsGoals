@@ -18,7 +18,7 @@
     <div class="panel panel-success">
         <div class="panel-heading text-center"><h4>RSVP</h4></div>
         <div class="panel-body">
-            @using (Html.BeginForm()) {
+            @using (Html.BeginForm("NewUser", "Auth", null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
                 @Html.ValidationSummary()
                 <div class="form-group">
                     <label>Your name:</label>

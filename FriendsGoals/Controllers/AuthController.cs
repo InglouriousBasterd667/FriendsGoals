@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Security.Claims;
+using System.Data.Entity.Validation;
+using System;
+using System.Collections.Generic;
 
 namespace FriendsGoals.Controllers
 {
@@ -115,6 +118,7 @@ namespace FriendsGoals.Controllers
         [HttpPost]
         public async Task<ActionResult> NewUser(ProfileModel model)
         {
+
             if (!ModelState.IsValid)
             {
                 return View();
@@ -129,21 +133,53 @@ namespace FriendsGoals.Controllers
                 Sex = (bool)model.Sex,
             };
 
-            var result = await userManager.CreateAsync(user, model.Password);
-
-            if (result.Succeeded)
+            HttpPostedFileBase upload = Request.Files["upload"];
+            if (upload != null && upload.ContentLength > 0)
             {
-                await SignIn(user);
-                return RedirectToAction("index", "home");
+                var avatar = new File
+                {
+                    FileName = System.IO.Path.GetFileName(upload.FileName),
+                    FileType = FileType.Avatar,
+                    ContentType = upload.ContentType
+                };
+                using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                {
+                    avatar.Content = reader.ReadBytes(upload.ContentLength);
+                }
+                user.Files = new List<File> { avatar };
             }
-
-            foreach (var error in result.Errors)
+            try
             {
-                ModelState.AddModelError("", error);
-            }
 
-            return View();
+                var result = await userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await SignIn(user);
+                    return RedirectToAction("index", "home");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+
+                return View();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
         }
     }
-    
+
 }

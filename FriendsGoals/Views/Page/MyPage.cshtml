@@ -10,12 +10,15 @@
 <div class="full-name text-info"><p>@CurrentUser.GivenName @CurrentUser.Surname</p></div>
 <div class="user-info-block">
     <div class="user-image user-info-part">
-            <dt>
-                Avatar
-            </dt>
-            <dd>
-            </dd>
-    </div>
+    @if (Model.Files.Any(f => f.FileType == FileType.Avatar))
+    {
+        <dt>
+            Avatar
+        </dt>
+        <dd>
+            <img src="~/File?id=@Model.Files.First(f => f.FileType == FileType.Avatar).FileId" alt="avatar" />
+        </dd>
+    }
     <div class="user-info user-info-part">
         <p>Phone: @CurrentUser.Phone</p>
         <p>Sex: @CurrentUser.Sex</p>
