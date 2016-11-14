@@ -9,15 +9,6 @@ namespace FriendsGoals.Controllers
 {
     public class FileController : AppController
     {
-        private readonly UserManager<AppUser> userManager;
-        public FileController() : this(Startup.UserManagerFactory.Invoke())
-        {
-        }
-
-        public FileController(UserManager<AppUser> userManager)
-        {
-            this.userManager = userManager;
-        }
         private AppDbContext db = new AppDbContext();
         // GET: File
         public ActionResult Index(int id)

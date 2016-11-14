@@ -5,9 +5,15 @@
             <ul id="users-list">
                 @foreach (var elem in Model)
                 {
-                    <li>
+                   <li>
+                        @if (elem.Files.Any(f => f.FileType == FileType.Avatar))
+                        {
+                            <dd>
+                                <img src="~/File?id=@elem.Files.First(f => f.FileType == FileType.Avatar).FileId" alt="avatar" width="40" height="40" />
+                                </dd>
+                        }
                         <div class="user-main-level">
-                            @elem.Id
+                            @elem.Name @elem.UserSurname
                         </div>
                     </li>
                 }
