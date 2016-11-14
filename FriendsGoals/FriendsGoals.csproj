@@ -240,6 +240,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="AppUserPrincipal.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\PageController.cs" />
@@ -290,6 +291,9 @@
     <EmbeddedResource Include="Migrations\201611141838103_Files.resx">
       <DependentUpon>201611141838103_Files.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\File\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
