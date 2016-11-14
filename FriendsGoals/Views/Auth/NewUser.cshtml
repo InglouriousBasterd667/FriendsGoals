@@ -50,6 +50,14 @@
                     <label>Your phone:</label>
                     @Html.TextBoxFor(x => x.Phone, new { @class = "form-control" })
                 </div>
+
+                <div class="form-group">
+                    @Html.Label("Avatar", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="file" id="Avatar" name="upload" />
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label>Your sex:</label>
                     @Html.DropDownListFor(x => x.Sex, new[] {

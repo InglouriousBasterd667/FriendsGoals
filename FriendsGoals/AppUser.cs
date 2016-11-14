@@ -10,7 +10,11 @@ namespace FriendsGoals
         public string UserSurname { get; set; }
         public string Phone { get; set; }
         public bool Sex { get; set; }
-		//public List<ProfileModel> Friends { get; set; }
-		//public List<Message> Messages { get; set; }
+
+        public ICollection<AppUser> Friends { get; set; }
+        public virtual ICollection<File> Files { get; set; }
+
+        //public List<ProfileModel> Friends { get; set; }
+        //public List<Message> Messages { get; set; }
     }
 }

@@ -206,7 +206,6 @@
     <Content Include="scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Views\Page\MyPage.cshtml" />
     <Content Include="Views\Page\MyFriends.cshtml" />
-
     <Content Include="Views\Page\AllUsers.cshtml" />
     <Content Include="Views\Page\ChatRoom.cshtml" />
     <Content Include="Views\Page\History.cshtml" />
@@ -244,6 +243,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\PageController.cs" />
+    <Compile Include="FileType.cs" />
     <Compile Include="FilterConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -252,6 +252,7 @@
     <Compile Include="Models\ChatMessage.cs" />
     <Compile Include="Models\ChatModel.cs" />
     <Compile Include="Models\ChatUser.cs" />
+    <Compile Include="Models\File.cs" />
     <Compile Include="Models\LogInModel.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\ProfileModel.cs" />
