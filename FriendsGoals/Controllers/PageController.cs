@@ -4,14 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FriendsGoals.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FriendsGoals.Controllers
 {
-    public class PageController : Controller
+    public class PageController : AppController
     {
-<<<<<<< HEAD
-		public ActionResult MyPage() => View();
-=======
         private readonly UserManager<AppUser> userManager;
 		static ChatModel chat;
 
@@ -24,12 +22,13 @@ namespace FriendsGoals.Controllers
             this.userManager = userManager;
         }
 
-        public ActionResult MyPage() => View();
->>>>>>> ff8e6b12298db7047abc14c927f6840d40170bd9
+        public ActionResult MyPage() => View(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
 
-		public ActionResult Page(ProfileModel user) => View(user);
+        public ActionResult Page(ProfileModel user) => View(user);
 
 		public ActionResult MyFriends() => View();
+
+		public ActionResult AllUsers() => View(userManager.Users);
 
 		public ActionResult Friends(ProfileModel user) => View(user);
 

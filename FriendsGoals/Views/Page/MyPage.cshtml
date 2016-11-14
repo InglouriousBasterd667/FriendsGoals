@@ -1,4 +1,4 @@
-﻿@model FriendsGoals.Models.ProfileModel
+﻿@model FriendsGoals.AppUser
 
 @{
     ViewBag.Title = CurrentUser.GivenName + " " + CurrentUser.Surname;
@@ -10,9 +10,11 @@
 <div class="full-name text-info"><p>@CurrentUser.GivenName @CurrentUser.Surname</p></div>
 <div class="user-info-block">
     <div class="user-image user-info-part">
-        <a href="">
-            <img src="https://pp.vk.me/c604716/v604716378/caaf/WrjTyvFd9Gw.jpg" width="200" />
-        </a>
+            <dt>
+                Avatar
+            </dt>
+            <dd>
+            </dd>
     </div>
     <div class="user-info user-info-part">
         <p>Phone: @CurrentUser.Phone</p>
