@@ -12,6 +12,7 @@ namespace FriendsGoals
         public bool Sex { get; set; }
 
         public ICollection<AppUser> Friends { get; set; }
+		public ICollection<ChatModel> Dialogs { get; set; }
         public virtual ICollection<File> Files { get; set; }
 
         //public List<ProfileModel> Friends { get; set; }

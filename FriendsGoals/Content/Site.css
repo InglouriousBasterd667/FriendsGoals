@@ -96,3 +96,41 @@ textarea {
   text-decoration: none;
   color: #fff;
 }
+
+.btnWriteMsg {
+    border: 1px solid #8bb5ff;
+    background: #8bb5ff;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.btnWriteMsg:hover {
+    border: 1px solid #5a8de8;
+    background: #5a8de8;
+    transition: 0.2s ease-in-out;
+}
+
+.dialog-element {
+    height: 80px;
+}
+
+.dialog-element:hover {
+    background-color: #f6f6f6;
+}
+
+.interlocutor-image {
+    margin: 15px;
+    float: left;
+}
+
+.interlocutor-name {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.last-message {
+    color: #5c5c5c;
+}

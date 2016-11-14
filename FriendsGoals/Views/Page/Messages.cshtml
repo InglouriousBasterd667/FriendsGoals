@@ -1,29 +1,30 @@
-﻿@model FriendsGoals.Models.ChatModel
+﻿@model FriendsGoals.AppUser
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Чат на Ajax и JQuery</title>
+    <title>Messages</title>
     <link href="~/Content/Site.css" rel="stylesheet" />
     <script src="~/scripts/jquery-1.10.2.js"></script>
     <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/scripts/chat.js"></script>
 </head>
 <body>
-    <div id="Username">
-    </div>
-    <div id="LastRefresh">
-    </div>
-    <div id="container">
-        <div id="loginBlock">
-            Введите имя :
-            <input type="text" id="txtUserName" />
-            <button id="btnLogin" value="Войти">Войти</button>
-        </div>
-    </div>
-    <div id="Error">
-    </div>
+    <button class="btnWriteMsg">Write message</button>
+    @if (Model.Dialogs != null)
+    {
+        foreach (FriendsGoals.Models.ChatModel dialog in Model.Dialogs)
+        {
+            <hr />
+            Html.RenderPartial("Dialog", dialog);
+        }
+        <hr />
+    }
+    else
+    {
+        <p class="no-msg">You have no messages.</p>
+    }
     @Ajax.ActionLink("Login", "Messages", new { user = "" },
         new AjaxOptions { UpdateTargetId = "container", OnFailure = "LoginOnFailure", OnSuccess = "LoginOnSuccess" },
         new { @id = "LoginButton" })

@@ -1,17 +1,29 @@
-﻿@model FriendsGoals.Models.ProfileModel
+﻿@model FriendsGoals.AppUser
 
 @{
-    ViewBag.Title = Model.Name + " " + Model.Surname;
+    ViewBag.Title = Model.Name + " " + Model.UserSurname;
 }
 
-@{ 
+@{
 //model surname doesnt work
 }
-<div class="full-name text-info"><p>@Model.Name @Model.Surname</p></div>
-<div class="user-image">
-    <a href="">
-        <img src="https://pp.vk.me/c604716/v604716378/caaf/WrjTyvFd9Gw.jpg" width="200" />
-    </a>
+<div class="full-name text-info">
+    <p>@Model.Name @Model.UserSurname</p>
+
+</div>
+<div class="user-info-block">
+    <div class="user-image user-info-part">
+        @if (Model.Files.Any(f => f.FileType == FileType.Avatar))
+        {
+            <dd>
+                <img src="~/File?id=@Model.Files.First(f => f.FileType == FileType.Avatar).FileId" alt="avatar" width="200" height="200" />
+            </dd>
+        }
+    </div>
+    <div class="user-info user-info-part">
+        <p>Phone: @Model.Phone</p>
+        <p>Sex: @Model.Sex</p>
+    </div>
 </div>
 <h2>Hello, it is a prototype of @Model.Name's own page!</h2>
 

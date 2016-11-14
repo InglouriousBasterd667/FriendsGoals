@@ -20,7 +20,7 @@ namespace FriendsGoals.Controllers
         public PageController(UserManager<AppUser> userManager)
         {
             this.userManager = userManager;
-        }
+		}
 
         public ActionResult MyPage() => View(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
 
@@ -32,7 +32,38 @@ namespace FriendsGoals.Controllers
 
 		public ActionResult Friends(ProfileModel user) => View(user);
 
-		public ActionResult Messages(string user, bool? logOn, bool? logOff, string chatMessage)
+		public ActionResult Messages()
+		{
+			userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name).Dialogs = new List<ChatModel>();
+
+			ChatModel chat1 = new ChatModel();
+			chat1.chatID = 1;
+			chat1.Users = new List<AppUser>();
+			chat1.Users.Add(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
+			chat1.Messages = new List<ChatMessage>();
+			chat1.Messages.Add(new ChatMessage { Date = DateTime.Now, messageID = 1, Text = "FirstMessage", User = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name) });
+			userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name).Dialogs.Add(chat1);
+
+			ChatModel chat2 = new ChatModel();
+			chat2.chatID = 2;
+			chat2.Users = new List<AppUser>();
+			chat2.Users.Add(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
+			chat2.Messages = new List<ChatMessage>();
+			chat2.Messages.Add(new ChatMessage { Date = DateTime.Now, messageID = 2, Text = "SecondMessage", User = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name) });
+			userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name).Dialogs.Add(chat2);
+
+			ChatModel chat3 = new ChatModel();
+			chat3.chatID = 3;
+			chat3.Users = new List<AppUser>();
+			chat3.Users.Add(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
+			chat3.Messages = new List<ChatMessage>();
+			chat3.Messages.Add(new ChatMessage { Date = DateTime.Now, messageID = 3, Text = "ThirdMessage", User = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name) });
+			userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name).Dialogs.Add(chat3);
+
+			return View(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
+		}
+
+		/*public ActionResult Messages(string user, bool? logOn, bool? logOff, string chatMessage)
 		{
 			try
 			{
@@ -115,9 +146,9 @@ namespace FriendsGoals.Controllers
 				Response.StatusCode = 500;
 				return Content(ex.Message);
 			}
-		}
+		}*/
 
-		public void LogOff(ChatUser user)
+		/*public void LogOff(ChatUser user)
 		{
 			chat.Users.Remove(user);
 			chat.Messages.Add(new ChatMessage()
@@ -125,6 +156,6 @@ namespace FriendsGoals.Controllers
 				Text = user.Name + " покинул чат.",
 				Date = DateTime.Now
 			});
-		}
+		}*/
 	}
 }
