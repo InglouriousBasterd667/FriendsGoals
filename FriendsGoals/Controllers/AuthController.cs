@@ -102,6 +102,10 @@ namespace FriendsGoals.Controllers
             return ctx.Authentication;
         }
 
+
+
+
+
         [HttpGet]
         public ViewResult NewUser()
         {
