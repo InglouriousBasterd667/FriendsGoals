@@ -1,23 +1,16 @@
 ﻿@model IEnumerable<FriendsGoals.AppUser>
-<div class="users-container">
-    <ul class="newlist users-list">
-        <li>
-            <ul id="users-list">
-                @foreach (var elem in Model)
+    @foreach (var elem in Model)
+    {
+        <a class="user-link" href="@Url.Action("ShowUser", "Page", new { id = elem.Id }, null)">
+            <hr />
+            <div class="users-container">
+                @if (elem.Files.Any(f => f.FileType == FileType.Avatar))
                 {
-                   <li>
-                        @if (elem.Files.Any(f => f.FileType == FileType.Avatar))
-                        {
-                            <dd>
-                                <img src="~/File?id=@elem.Files.First(f => f.FileType == FileType.Avatar).FileId" alt="avatar" width="40" height="40" />
-                                </dd>
-                        }
-                        <div class="user-main-level">
-                            @elem.Name @elem.UserSurname
-                        </div>
-                    </li>
+                    <img class="interlocutor-image" src="~/File?id=@elem.Files.First(f => f.FileType == FileType.Avatar).FileId" alt="avatar" align="left" width="40" height="40" />
                 }
-            </ul>
-        </li>
-    </ul>
-</div>
+                <p class="user-main-level">
+                    @elem.Name @elem.UserSurname
+                </p>
+            </div>
+        </a>
+    }

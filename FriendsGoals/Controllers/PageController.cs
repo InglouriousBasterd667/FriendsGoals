@@ -11,7 +11,6 @@ namespace FriendsGoals.Controllers
     public class PageController : AppController
     {
         private readonly UserManager<AppUser> userManager;
-		static ChatModel chat;
 
         public PageController() : this(Startup.UserManagerFactory.Invoke())
         {
@@ -24,9 +23,21 @@ namespace FriendsGoals.Controllers
 
         public ActionResult MyPage() => View(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
 
-        public ActionResult Page(ProfileModel user) => View(user);
+        public ActionResult ShowUser(string id) => View(userManager.Users.FirstOrDefault(x=> x.Id == id));
 
-		public ActionResult MyFriends() => View();
+		public ActionResult MyFriends() => View(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
+
+        public ActionResult AddFriend(string id)
+        {
+            //AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
+            AppUser friend = userManager.Users.FirstOrDefault(x => x.Id == id);
+            //if (currentUser.Friends == null) currentUser.Friends = new List<AppUser>();
+            //currentUser.Friends.Add(friend);
+            if (userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name).Friends == null)
+                userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name).Friends = new List<AppUser>();
+            userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name).Friends.Add(friend);
+            return RedirectToAction("MyFriends");
+        }
 
 		public ActionResult AllUsers() => View(userManager.Users);
 

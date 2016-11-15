@@ -15,15 +15,21 @@
     <div class="user-image user-info-part">
         @if (Model.Files.Any(f => f.FileType == FileType.Avatar))
         {
-            <dd>
                 <img src="~/File?id=@Model.Files.First(f => f.FileType == FileType.Avatar).FileId" alt="avatar" width="200" height="200" />
-            </dd>
         }
     </div>
     <div class="user-info user-info-part">
         <p>Phone: @Model.Phone</p>
-        <p>Sex: @Model.Sex</p>
+        <p>Sex: @(Model.Sex ? "Male" : "Female")</p>
     </div>
 </div>
-<h2>Hello, it is a prototype of @Model.Name's own page!</h2>
-
+@{ 
+    //if (Model.Friends.FirstOrDefault(x => x.Name == CurrentUser.Name) == null)
+    //{
+        @Html.ActionLink("Add to friends", "AddFriend", "Page", new { id = Model.Id }, new { @class = "btnAddFriend"})
+    //}
+    //else
+    //{
+    //    <p class="friends-msg">You are friends</p>
+    //}
+}
