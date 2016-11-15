@@ -1,44 +1,39 @@
 ﻿@model FriendsGoals.AppUser
 @{
     ViewBag.Title = "MyFriends";
+    string focusedElement = ViewBag.Focused;
+    if (focusedElement.IsEmpty())
+    {
+        focusedElement = "elem1";
+    }
+    string pageToRender = ViewBag.PageToRender;
+    if (pageToRender.IsEmpty())
+    {
+        pageToRender = "FriendsList";
+    }
 }
 <html>
 <head>
     <script>
         function press(obj) {
-            document.getElementById("elem1").style.backgroundColor = "aliceblue";
-            document.getElementById("elem2").style.backgroundColor = "aliceblue";
-            document.getElementById("elem3").style.backgroundColor = "aliceblue";
-            document.getElementById(obj.id).style.backgroundColor = "#5a8de8";
+            document.getElementById("elem1").style.backgroundColor = "#7099e2";
+            document.getElementById("elem2").style.backgroundColor = "#7099e2";
+            document.getElementById("elem3").style.backgroundColor = "#7099e2";
+            document.getElementById(obj.id).style.backgroundColor = "#5d89d7";
         }
         function init() {
-            press(document.getElementById("elem1"));
+            press(document.getElementById("@focusedElement"));
         }
     </script>
 </head>
 <body onload="init()">
     <div class="friends-nav-panel">
-        <div class="friends-nav-element" id="elem1" onclick="press(this)">Friends</div>
-        <div class="friends-nav-element" id="elem2" onclick="press(this)">Followers</div>
-        <div class="friends-nav-element" id="elem3" onclick="press(this)">Following</div>
+        <div class="friends-nav-element" id="elem1" onclick="press(this)">@Html.ActionLink("Friends", "MyFriends", "Page", new { pressedElement = "elem1" }, null )</div>
+        <div class="friends-nav-element" id="elem2" onclick="press(this)">@Html.ActionLink("Followers", "MyFriends", "Page", new { pressedElement = "elem2" }, null)</div>
+        <div class="friends-nav-element" id="elem3" onclick="press(this)">@Html.ActionLink("Following", "MyFriends", "Page", new { pressedElement = "elem3" }, null)</div>
     </div>
-    @if (Model.Friends != null)
-    {
-        foreach (var friend in Model.Friends)
-        {
-            <a class="user-link" href="@Url.Action("ShowUser", "Page", new { id = friend.Id }, null)">
-                <hr />
-                <div class="users-container">
-                    @if (friend.Files.Any(f => f.FileType == FileType.Avatar))
-                    {
-                        <img class="interlocutor-image" src="~/File?id=@friend.Files.First(f => f.FileType == FileType.Avatar).FileId" alt="avatar" align="left" width="40" height="40" />
-                    }
-                    <p class="user-main-level">
-                        @friend.Name @friend.UserSurname
-                    </p>
-                </div>
-            </a>
-        }
+    @{
+        Html.RenderPartial(pageToRender, Model);
     }
 </body>
 </html>

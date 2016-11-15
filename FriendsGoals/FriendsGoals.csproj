@@ -210,6 +210,9 @@
     <Content Include="Views\Page\ChatRoom.cshtml" />
     <Content Include="Views\Page\History.cshtml" />
     <Content Include="Views\Page\Dialog.cshtml" />
+    <Content Include="Views\Page\FriendsList.cshtml" />
+    <Content Include="Views\Page\FollowersList.cshtml" />
+    <Content Include="Views\Page\FollowingList.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

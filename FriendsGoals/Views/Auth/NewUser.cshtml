@@ -12,11 +12,11 @@
     <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" />
     <link href="~/Content/Styles.css" rel="stylesheet" />
-    <title>RsvpForm</title>
+    <title>Registration</title>
 </head>
 <body>
     <div class="panel panel-success">
-        <div class="panel-heading text-center"><h4>RSVP</h4></div>
+        <div class="panel-heading text-center"><h4>Registration</h4></div>
         <div class="panel-body">
             @using (Html.BeginForm("NewUser", "Auth", null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
                 @Html.ValidationSummary()
@@ -61,14 +61,14 @@
                 <div class="form-group">
                     <label>Your sex:</label>
                     @Html.DropDownListFor(x => x.Sex, new[] {
-                            new SelectListItem() {Text = "Man",
+                            new SelectListItem() {Text = "Male",
                                 Value = bool.TrueString},
-                            new SelectListItem() {Text = "Woman",
+                            new SelectListItem() {Text = "Female",
                                 Value = bool.FalseString}
                         }, "Choose an option", new { @class = "form-control" })
                 </div>
                 <div class="text-center">
-                    <input class="btn btn-success" type="submit" value="Submit" />
+                    <input class="btn btn-success" type="submit" value="Register" />
                 </div>
             }
         </div>

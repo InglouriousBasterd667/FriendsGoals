@@ -1,7 +1,7 @@
 ﻿@model FriendsGoals.AppUser
 
 @{
-    ViewBag.Title = CurrentUser.GivenName + " " + CurrentUser.Surname;
+    ViewBag.Title = CurrentUser.GivenName + " " + CurrentUser.Surname + " - My Page";
 }
 
 @{
@@ -22,7 +22,8 @@
     <div class="user-info user-info-part">
         <p>Phone: @CurrentUser.Phone</p>
         <p>Sex: @CurrentUser.Sex</p>
+        @Html.ActionLink("Friends", "MyFriends", "Page", null, new { @class = "btnSide" })
+        <p>Followers: @Model.Followers.Count</p>
     </div>
 </div>
-<h2>Hello, @CurrentUser.GivenName, it is a prototype of your own page!</h2>
 

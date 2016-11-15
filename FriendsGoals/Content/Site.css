@@ -171,24 +171,60 @@ textarea {
     padding: 2px;
     float: left;
     cursor: pointer;
-    background-color: aliceblue;
+    background-color: #7099e2;
 }
 
-.friends-nav-element:hover {
-    background-color: #8bb5ff;
+.friends-nav-element a {
+    text-decoration: none;
+    color: white;
+    height: 20px;
 }
 
-/*.friends-nav-element: {
-    background-color: #5a8de8;
-}*/
+.friends-nav-element a:hover {
+    text-decoration: none;
+}
 
 .btnAddFriend {
+    margin-left: 40px;
     border: 1px solid #8bb5ff;
     background-color: #8bb5ff;
+    transition: 0.1s ease-in-out;
+    color: white;
 }
 
 .btnAddFriend:hover {
+    text-decoration: none;
     border-color: #5a8de8;
     background-color: #5a8de8;
+    transition: 0.2s ease-in-out;
+    color: white;
 }
 
+.btnSide {
+    float: right;
+    margin: 5px;
+    border: 1px solid #8bb5ff;
+    background-color: #8bb5ff;
+    transition: 0.1s ease-in-out;
+    color: white;
+}
+
+.btnSide:hover {
+    text-decoration: none;
+    border-color: #5a8de8;
+    background-color: #5a8de8;
+    transition: 0.2s ease-in-out;
+    color: white;
+}
+
+.friends-msg {
+    width: 110px;
+    height: 20px;
+    line-height: 9px;
+    padding: 5px;
+    margin-left: 40px;
+    margin-top: 5px;
+    border: 1px solid #edecec;
+    background-color: #edecec;
+    color: white;
+}

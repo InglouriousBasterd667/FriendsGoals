@@ -11,13 +11,10 @@ namespace FriendsGoals
         public string Phone { get; set; }
         public bool Sex { get; set; }
 
-        public ICollection<AppUser> Friends { get; set; }
-        public ICollection<AppUser> Followers { get; set; }
-        public ICollection<AppUser> Following { get; set; }
-		public ICollection<ChatModel> Dialogs { get; set; }
+        public virtual ICollection<AppUser> Friends { get; set; }
+        public virtual ICollection<AppUser> Followers { get; set; }
+        public virtual ICollection<AppUser> Following { get; set; }
+		public virtual ICollection<ChatModel> Dialogs { get; set; }
         public virtual ICollection<File> Files { get; set; }
-
-        //public List<ProfileModel> Friends { get; set; }
-        //public List<Message> Messages { get; set; }
     }
 }

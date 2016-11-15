@@ -21,15 +21,25 @@
     <div class="user-info user-info-part">
         <p>Phone: @Model.Phone</p>
         <p>Sex: @(Model.Sex ? "Male" : "Female")</p>
+        @Html.ActionLink("Friends", "Friends", "Page", null, new { @class = "btnSide" })
+        <p>Followers: @Model.Followers.Count</p>
     </div>
 </div>
-@{ 
-    //if (Model.Friends.FirstOrDefault(x => x.Name == CurrentUser.Name) == null)
-    //{
-        @Html.ActionLink("Add to friends", "AddFriend", "Page", new { id = Model.Id }, new { @class = "btnAddFriend"})
-    //}
-    //else
-    //{
-    //    <p class="friends-msg">You are friends</p>
-    //}
+@{
+    if (Model.Followers.FirstOrDefault(x => x.UserName == CurrentUser.Name) != null)
+    {
+        @Html.ActionLink("Cancel request", "MyFriends", "Page", new { pressedElement = "elem3" }, new { @class = "btnAddFriend" })
+    }
+    else if (Model.Following.FirstOrDefault(x => x.UserName == CurrentUser.Name) != null)
+    {
+        @Html.ActionLink("Accept request", "MyFriends", "Page", new { pressedElement = "elem2" }, new { @class = "btnAddFriend" })
+    }
+    else if (Model.Friends.FirstOrDefault(x => x.UserName == CurrentUser.Name) != null)
+    {
+        <p class="friends-msg">You are friends</p>
+    }
+    else
+    {
+        @Html.ActionLink("Request friendship", "FriendshipRequest", "Page", new { id = Model.Id }, new { @class = "btnAddFriend" })
+    }
 }

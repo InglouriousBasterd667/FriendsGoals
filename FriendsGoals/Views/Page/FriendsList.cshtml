@@ -1,7 +1,4 @@
 ﻿@model FriendsGoals.AppUser
-@{
-    ViewBag.Title = "Friends of " + Model.Name + " " + Model.UserSurname;
-}
 
 @if (Model.Friends != null)
 {
@@ -13,10 +10,11 @@
                 @if (friend.Files.Any(f => f.FileType == FileType.Avatar))
                 {
                     <img class="interlocutor-image" src="~/File?id=@friend.Files.First(f => f.FileType == FileType.Avatar).FileId" alt="avatar" align="left" width="40" height="40" />
-}
+                }
                 <p class="user-main-level">
                     @friend.Name @friend.UserSurname
                 </p>
+                @Html.ActionLink("Delete", "DeleteFriend", "Page", new { id = friend.Id }, new { @class = "btnSide" })
             </div>
         </a>
     }

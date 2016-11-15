@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using FriendsGoals.Models;
 using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
 
 namespace FriendsGoals.Controllers
 {
@@ -25,23 +26,94 @@ namespace FriendsGoals.Controllers
 
         public ActionResult ShowUser(string id) => View(userManager.Users.FirstOrDefault(x=> x.Id == id));
 
-		public ActionResult MyFriends() => View(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
+		public ActionResult MyFriends(string pressedElement)
+		{
+			if (pressedElement == "elem1")
+			{
+				ViewBag.Focused = pressedElement;
+				ViewBag.PageToRender = "FriendsList";
+			}
+			else if (pressedElement == "elem2")
+			{
+				ViewBag.Focused = pressedElement;
+				ViewBag.PageToRender = "FollowersList";
+			}
+			else if (pressedElement == "elem3")
+			{
+				ViewBag.Focused = pressedElement;
+				ViewBag.PageToRender = "FollowingList";
+			}
 
-        public ActionResult AddFriend(string id)
-        {
-            //AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
-            AppUser friend = userManager.Users.FirstOrDefault(x => x.Id == id);
-            //if (currentUser.Friends == null) currentUser.Friends = new List<AppUser>();
-            //currentUser.Friends.Add(friend);
-            if (userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name).Friends == null)
-                userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name).Friends = new List<AppUser>();
-            userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name).Friends.Add(friend);
-            return RedirectToAction("MyFriends");
-        }
+			return View(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
+		}
+
+		public ActionResult FriendshipRequest(string id)
+		{
+			AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
+			AppUser requestingFriend = userManager.Users.FirstOrDefault(x => x.Id == id);
+			if (currentUser.Following == null) currentUser.Following = new List<AppUser>();
+			if (requestingFriend.Followers == null) requestingFriend.Followers = new List<AppUser>();
+
+			currentUser.Following.Add(requestingFriend);
+			requestingFriend.Followers.Add(currentUser);
+
+			userManager.Update(currentUser);
+			userManager.Update(requestingFriend);
+
+			return RedirectToAction("ShowUser", new { id = requestingFriend.Id });
+		}
+
+		public ActionResult AcceptRequest(string id)
+		{
+			AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
+			AppUser newFriend = userManager.Users.FirstOrDefault(x => x.Id == id);
+			if (currentUser.Friends == null) currentUser.Friends = new List<AppUser>();
+			if (newFriend.Friends == null) newFriend.Friends = new List<AppUser>();
+
+			currentUser.Followers.Remove(newFriend);
+			currentUser.Friends.Add(newFriend);
+			newFriend.Following.Remove(currentUser);
+			newFriend.Friends.Add(currentUser);
+
+			userManager.Update(currentUser);
+			userManager.Update(newFriend);
+
+			return RedirectToAction("MyFriends", new { pressedElement = "elem2" });
+		}
+
+		public ActionResult CancelRequest(string id)
+		{
+			AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
+			AppUser requestedFriend = userManager.Users.FirstOrDefault(x => x.Id == id);
+
+			currentUser.Following.Remove(requestedFriend);
+			requestedFriend.Followers.Remove(currentUser);
+
+			userManager.Update(currentUser);
+			userManager.Update(requestedFriend);
+
+			return RedirectToAction("MyFriends", new { pressedElement = "elem3" });
+		}
+
+		public ActionResult DeleteFriend(string id)
+		{
+			AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
+			AppUser friend = userManager.Users.FirstOrDefault(x => x.Id == id);
+
+			currentUser.Friends.Remove(friend);
+			currentUser.Followers.Add(friend);
+			friend.Friends.Remove(currentUser);
+			friend.Following.Add(currentUser);
+
+			userManager.Update(currentUser);
+			userManager.Update(friend);
+
+			return RedirectToAction("MyFriends", new { pressedElement = "elem1" });
+		}
 
 		public ActionResult AllUsers() => View(userManager.Users);
 
-		public ActionResult Friends(ProfileModel user) => View(user);
+		public ActionResult Friends(string id) => View(userManager.Users.FirstOrDefault(x => x.Id == id));
 
 		public ActionResult Messages()
 		{

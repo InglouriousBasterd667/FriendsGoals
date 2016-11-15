@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<FriendsGoals.AppUser>
     @foreach (var elem in Model)
     {
-        <a class="user-link" href="@Url.Action("ShowUser", "Page", new { id = elem.Id }, null)">
+        string resultUrl = elem.UserName == CurrentUser.Name ? Url.Action("MyPage", "Page", null, null) :
+            Url.Action("ShowUser", "Page", new { id = elem.Id }, null);
+        <a class="user-link" href="@resultUrl">
             <hr />
             <div class="users-container">
                 @if (elem.Files.Any(f => f.FileType == FileType.Avatar))
