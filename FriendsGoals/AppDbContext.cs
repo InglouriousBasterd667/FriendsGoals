@@ -11,5 +11,6 @@ namespace FriendsGoals
         public AppDbContext() : base("AppDatabase")
         {
         }
+
     }
 }

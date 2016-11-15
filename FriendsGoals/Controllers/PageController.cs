@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using FriendsGoals.Models;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace FriendsGoals.Controllers
 {
@@ -110,8 +111,18 @@ namespace FriendsGoals.Controllers
 
 			return RedirectToAction("MyFriends", new { pressedElement = "elem1" });
 		}
+        public async System.Threading.Tasks.Task<ActionResult> AddFriend(string id)
+        {
+            AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
+            AppUser friend = userManager.Users.FirstOrDefault(x => x.Id == id);
+            currentUser.Friends.Add(friend);
+            AppDbContext userDbContext = new AppDbContext();
+            userDbContext.Entry(CurrentUser).State = System.Data.Entity.EntityState.Modified;
+            await userDbContext.SaveChangesAsync();
+            return RedirectToAction("MyFriends");
+        }
 
-		public ActionResult AllUsers() => View(userManager.Users);
+        public ActionResult AllUsers() => View(userManager.Users);
 
 		public ActionResult Friends(string id) => View(userManager.Users.FirstOrDefault(x => x.Id == id));
 

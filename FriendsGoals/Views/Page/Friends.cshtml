@@ -10,13 +10,15 @@
         <a class="user-link" href="@Url.Action("ShowUser", "Page", new { id = friend.Id }, null)">
             <hr />
             <div class="users-container">
-                @if (friend.Files.Any(f => f.FileType == FileType.Avatar))
-                {
-                    <img class="interlocutor-image" src="~/File?id=@friend.Files.First(f => f.FileType == FileType.Avatar).FileId" alt="avatar" align="left" width="40" height="40" />
-}
-                <p class="user-main-level">
-                    @friend.Name @friend.UserSurname
-                </p>
+                @if (friend.Files != null){
+                    if (friend.Files.Any(f => f.FileType == FileType.Avatar))
+                    {
+                            <img class="interlocutor-image" src="~/File?id=@friend.Files.First(f => f.FileType == FileType.Avatar).FileId" alt="avatar" align="left" width="40" height="40" />
+                    }
+                }
+                    <p class="user-main-level">
+                        @friend.Name @friend.UserSurname
+                    </p>
             </div>
         </a>
     }
