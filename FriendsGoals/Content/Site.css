@@ -98,6 +98,7 @@ textarea {
 }
 
 .btnWriteMsg {
+    padding: 1px;
     border: 1px solid #8bb5ff;
     background: #8bb5ff;
     color: #fff;
@@ -108,6 +109,8 @@ textarea {
 }
 
 .btnWriteMsg:hover {
+    text-decoration: none;
+    color: #fff;
     border: 1px solid #5a8de8;
     background: #5a8de8;
     transition: 0.2s ease-in-out;

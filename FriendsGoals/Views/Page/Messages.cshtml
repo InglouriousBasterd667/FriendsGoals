@@ -6,12 +6,10 @@
     <meta charset="utf-8" />
     <title>Messages</title>
     <link href="~/Content/Site.css" rel="stylesheet" />
-    <script src="~/scripts/jquery-1.10.2.js"></script>
-    <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="~/scripts/chat.js"></script>
 </head>
 <body>
-    <button class="btnWriteMsg">Write message</button>
+    <!--<button class="btnWriteMsg">Write message</button>-->
+    @Html.ActionLink("Write message", "WriteMessage", "Page", null, new { @class = "btnWriteMsg" })
     @if (Model.Dialogs != null)
     {
         foreach (FriendsGoals.Models.ChatModel dialog in Model.Dialogs)

@@ -62,9 +62,9 @@
                     <label>Your sex:</label>
                     @Html.DropDownListFor(x => x.Sex, new[] {
                             new SelectListItem() {Text = "Male",
-                                Value = bool.TrueString},
+                                Value = "Male"},
                             new SelectListItem() {Text = "Female",
-                                Value = bool.FalseString}
+                                Value = "Female"}
                         }, "Choose an option", new { @class = "form-control" })
                 </div>
                 <div class="text-center">

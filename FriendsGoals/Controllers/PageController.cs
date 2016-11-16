@@ -30,48 +30,49 @@ namespace FriendsGoals.Controllers
 
         public ActionResult Edit() => View(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
 
-        [HttpPost]
-        public ActionResult Edit(HttpPostedFileBase upload)
-        {
-            AppDbContext db = new AppDbContext();
-            AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
-            if(TryUpdateModel(currentUser,"",new string[] {"Name","UserSurname", "Phone" })){
-                try
-                {
-                    if (upload != null && upload.ContentLength > 0)
-                    {
-                        db.Configuration.ValidateOnSaveEnabled = false;
-                        if (currentUser.Files.Any(f => f.FileType == FileType.Avatar))
-                        {
-                            // db.Files.Remove(currentUser.Files.First(f => f.FileType == FileType.Avatar));
-                            //var file = currentUser.Files.First(f => f.FileType == FileType.Avatar);
-                            //db.Entry(file).State = EntityState.Deleted;
-                            //db.SaveChanges();
-                        }
-                        var avatar = new File
-                        {
-                            FileName = System.IO.Path.GetFileName(upload.FileName),
-                            FileType = FileType.Avatar,
-                            ContentType = upload.ContentType
-                        };
-                        using (var reader = new System.IO.BinaryReader(upload.InputStream))
-                        {
-                            avatar.Content = reader.ReadBytes(upload.ContentLength);
-                        }
-                        currentUser.Files = new List<File> { avatar };
-                        userManager.Update(currentUser);
-                        return RedirectToAction("MyPage");
-                    }
-                }
-                catch(RetryLimitExceededException)
-                {
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-                }
-            }
-            return View();
-        }
+		[HttpPost]
+		public ActionResult Edit(HttpPostedFileBase upload)
+		{
+			AppDbContext db = new AppDbContext();
+			AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
+			if (TryUpdateModel(currentUser, "", new string[] { "Name", "UserSurname", "Phone" }))
+			{
+				try
+				{
+					if (upload != null && upload.ContentLength > 0)
+					{
+						db.Configuration.ValidateOnSaveEnabled = false;
+						if (currentUser.Files.Any(f => f.FileType == FileType.Avatar))
+						{
+							// db.Files.Remove(currentUser.Files.First(f => f.FileType == FileType.Avatar));
+							//var file = currentUser.Files.First(f => f.FileType == FileType.Avatar);
+							//db.Entry(file).State = EntityState.Deleted;
+							//db.SaveChanges();
+						}
+						var avatar = new File
+						{
+							FileName = System.IO.Path.GetFileName(upload.FileName),
+							FileType = FileType.Avatar,
+							ContentType = upload.ContentType
+						};
+						using (var reader = new System.IO.BinaryReader(upload.InputStream))
+						{
+							avatar.Content = reader.ReadBytes(upload.ContentLength);
+						}
+						currentUser.Files = new List<File> { avatar };
+						userManager.Update(currentUser);
+						return RedirectToAction("MyPage");
+					}
+				}
+				catch (RetryLimitExceededException)
+				{
+					ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+				}
+			}
+			return View();
+		}
 
-        public ActionResult ShowUser(string id) => View(userManager.Users.FirstOrDefault(x=> x.Id == id));
+		public ActionResult ShowUser(string id) => View(userManager.Users.FirstOrDefault(x=> x.Id == id));
 
 		public ActionResult MyFriends(string pressedElement)
 		{
@@ -158,7 +159,6 @@ namespace FriendsGoals.Controllers
 			return RedirectToAction("MyFriends", new { pressedElement = "elem1" });
 		}
 
-
         public ActionResult AllUsers() => View(userManager.Users);
 
 		public ActionResult Friends(string id) => View(userManager.Users.FirstOrDefault(x => x.Id == id));
@@ -166,33 +166,33 @@ namespace FriendsGoals.Controllers
 		public ActionResult Messages()
 		{
 			AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
-			AppUser friend = currentUser.Friends.First();
-			currentUser.Dialogs = new List<ChatModel>();
-			friend.Dialogs = new List<ChatModel>();
+			//AppUser friend = currentUser.Friends.First();
+			//currentUser.Dialogs = new List<ChatModel>();
+			//friend.Dialogs = new List<ChatModel>();
 
-			ChatModel chat1 = new ChatModel();
-			chat1.chatID = 1;
-			chat1.ChatName = friend.Name + " " + friend.UserSurname;
-			chat1.Users = new List<AppUser>();
-			chat1.Users.Add(currentUser);
-			chat1.Users.Add(friend);
-			chat1.Messages = new List<ChatMessage>();
-			chat1.Messages.Add(new ChatMessage { Date = DateTime.Now, messageID = 1, Text = "FirstMessage", User = currentUser });
+			//ChatModel chat1 = new ChatModel();
+			//chat1.chatID = 1;
+			//chat1.ChatName = friend.Name + " " + friend.UserSurname;
+			//chat1.Users = new List<AppUser>();
+			//chat1.Users.Add(currentUser);
+			//chat1.Users.Add(friend);
+			//chat1.Messages = new List<ChatMessage>();
+			//chat1.Messages.Add(new ChatMessage { Date = DateTime.Now, messageID = 1, Text = "FirstMessage", User = currentUser });
 
-			ChatModel chat2 = new ChatModel();
-			chat1.chatID = 2;
-			chat1.ChatName = currentUser.Name + " " + currentUser.UserSurname;
-			chat1.Users = new List<AppUser>();
-			chat1.Users.Add(friend);
-			chat1.Users.Add(currentUser);
-			chat1.Messages = new List<ChatMessage>();
-			chat1.Messages.Add(new ChatMessage { Date = DateTime.Now, messageID = 1, Text = "FirstMessage", User = currentUser });
+			//ChatModel chat2 = new ChatModel();
+			//chat1.chatID = 2;
+			//chat1.ChatName = currentUser.Name + " " + currentUser.UserSurname;
+			//chat1.Users = new List<AppUser>();
+			//chat1.Users.Add(friend);
+			//chat1.Users.Add(currentUser);
+			//chat1.Messages = new List<ChatMessage>();
+			//chat1.Messages.Add(new ChatMessage { Date = DateTime.Now, messageID = 1, Text = "FirstMessage", User = currentUser });
 
-			currentUser.Dialogs.Add(chat1);
-			friend.Dialogs.Add(chat2);
+			//currentUser.Dialogs.Add(chat1);
+			//friend.Dialogs.Add(chat2);
 
-			userManager.Update(currentUser);
-			userManager.Update(friend);
+			//userManager.Update(currentUser);
+			//userManager.Update(friend);
 
 			return View(currentUser);
 		}
@@ -209,6 +209,134 @@ namespace FriendsGoals.Controllers
 			else
 			{
 				return View(currentChat);
+			}
+		}
+
+		public ActionResult WriteMessage()
+		{
+			WriteMessageModel model = new WriteMessageModel { Sender = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name) };
+			return View(model);
+		}
+
+		[HttpPost]
+		public ActionResult WriteMessage(WriteMessageModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
+				AppUser recipient = userManager.Users.FirstOrDefault(x => x.Id == model.RecipientId);
+
+				ChatModel chat = currentUser.Dialogs.FirstOrDefault(x => x.Users.Last() == recipient);
+				ChatModel chatRecipient = recipient.Dialogs.FirstOrDefault(x => x.Users.Last() == currentUser);
+				if (chat == null && chatRecipient == null)
+				{
+					chat = new ChatModel
+					{
+						chatID = GetChatId(),
+						ChatName = recipient.Name + " " + recipient.UserSurname
+					};
+					chat.Users = new List<AppUser>();
+					chat.Users.Add(currentUser);
+					chat.Users.Add(recipient);
+					chat.Messages = new List<ChatMessage>();
+					chat.Messages.Add(new ChatMessage { messageID = GetMessageId(), Date = DateTime.Now, User = currentUser, Text = model.Text });
+
+					chatRecipient = new ChatModel
+					{
+						chatID = GetChatId(),
+						ChatName = currentUser.Name + " " + currentUser.UserSurname
+					};
+					chatRecipient.Users = new List<AppUser>();
+					chatRecipient.Users.Add(recipient);
+					chatRecipient.Users.Add(currentUser);
+					chatRecipient.Messages = new List<ChatMessage>();
+					chatRecipient.Messages.Add(new ChatMessage { messageID = GetMessageId(), Date = DateTime.Now, User = currentUser, Text = model.Text });
+
+					currentUser.Dialogs.Add(chat);
+					recipient.Dialogs.Add(chatRecipient);
+				}
+				else if (chat == null && chatRecipient != null)
+				{
+					chat = new ChatModel
+					{
+						chatID = GetChatId(),
+						ChatName = recipient.Name + " " + recipient.UserSurname
+					};
+					chat.Users = new List<AppUser>();
+					chat.Users.Add(currentUser);
+					chat.Users.Add(recipient);
+					chat.Messages = new List<ChatMessage>();
+					chat.Messages.Add(new ChatMessage { messageID = GetMessageId(), Date = DateTime.Now, User = currentUser, Text = model.Text });
+
+					recipient.Dialogs.FirstOrDefault(x => x.Users.Last() == currentUser).Messages.Add(
+						new ChatMessage
+						{
+							messageID = GetMessageId(),
+							Date = DateTime.Now,
+							User = currentUser,
+							Text = model.Text
+						}
+					);
+
+					currentUser.Dialogs.Add(chat);
+				}
+				else if (chat != null && chatRecipient == null)
+				{
+					currentUser.Dialogs.FirstOrDefault(x => x.Users.Last() == recipient).Messages.Add(
+						new ChatMessage
+						{
+							messageID = GetMessageId(),
+							Date = DateTime.Now,
+							User = currentUser,
+							Text = model.Text
+						}
+					);
+
+					chatRecipient = new ChatModel
+					{
+						chatID = GetChatId(),
+						ChatName = currentUser.Name + " " + currentUser.UserSurname
+					};
+					chatRecipient.Users = new List<AppUser>();
+					chatRecipient.Users.Add(recipient);
+					chatRecipient.Users.Add(currentUser);
+					chatRecipient.Messages = new List<ChatMessage>();
+					chatRecipient.Messages.Add(new ChatMessage { messageID = GetMessageId(), Date = DateTime.Now, User = currentUser, Text = model.Text });
+
+					recipient.Dialogs.Add(chatRecipient);
+				}
+				else
+				{
+					currentUser.Dialogs.FirstOrDefault(x => x.Users.Last() == recipient).Messages.Add(
+						new ChatMessage
+						{
+							messageID = GetMessageId(),
+							Date = DateTime.Now,
+							User = currentUser,
+							Text = model.Text
+						}
+					);
+
+					recipient.Dialogs.FirstOrDefault(x => x.Users.Last() == currentUser).Messages.Add(
+						new ChatMessage
+						{
+							messageID = GetMessageId(),
+							Date = DateTime.Now,
+							User = currentUser,
+							Text = model.Text
+						}
+					);
+				}
+
+				userManager.Update(currentUser);
+				userManager.Update(recipient);
+
+				return RedirectToAction("Messages");
+			}
+			else
+			{
+				ModelState.AddModelError("", "");
+				return View(model);
 			}
 		}
 
@@ -297,14 +425,35 @@ namespace FriendsGoals.Controllers
 			}
 		}*/
 
-		/*public void LogOff(ChatUser user)
+		public int GetChatId()
 		{
-			chat.Users.Remove(user);
-			chat.Messages.Add(new ChatMessage()
+			int id = 0;
+			foreach (AppUser user in userManager.Users)
 			{
-				Text = user.Name + " покинул чат.",
-				Date = DateTime.Now
-			});
-		}*/
+				foreach (ChatModel chat in user.Dialogs)
+				{
+					id++;
+				}
+			}
+
+			return id + 1;
+		}
+
+		public int GetMessageId()
+		{
+			int id = 0;
+			foreach (AppUser user in userManager.Users)
+			{
+				foreach (ChatModel chat in user.Dialogs)
+				{
+					foreach (ChatMessage message in chat.Messages)
+					{
+						id++;
+					}
+				}
+			}
+
+			return id + 1;
+		}
 	}
 }

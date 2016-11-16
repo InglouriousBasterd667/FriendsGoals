@@ -1,0 +1,21 @@
+﻿@model FriendsGoals.Models.WriteMessageModel
+
+@{
+    ViewBag.Title = "Write Message";
+    List<SelectListItem> friends = new List<SelectListItem>();
+    foreach (AppUser friend in Model.Sender.Friends)
+    {
+        friends.Add(new SelectListItem { Text = friend.Name + " " + friend.UserSurname, Value = friend.Id });
+    }
+}
+@using (Html.BeginForm())
+{
+
+    @Html.DropDownListFor(x => Model.RecipientId, friends)
+
+    @Html.EditorFor(x => x.Text);
+
+    <input type="submit" value="Send message" />
+}
+
+

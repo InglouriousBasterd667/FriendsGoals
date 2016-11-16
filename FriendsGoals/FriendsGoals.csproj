@@ -215,6 +215,7 @@
     <Content Include="Views\Page\FollowingList.cshtml" />
     <Content Include="Views\Page\Edit.cshtml" />
     <Content Include="Views\Page\Chat.cshtml" />
+    <Content Include="Views\Page\WriteMessage.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -267,6 +268,7 @@
     <Compile Include="Models\LogInModel.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\ProfileModel.cs" />
+    <Compile Include="Models\WriteMessageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AppViewPage.cs" />
   </ItemGroup>
