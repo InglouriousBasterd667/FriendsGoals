@@ -201,6 +201,7 @@ textarea {
 }
 
 .btnSide {
+    padding: 1px;
     float: right;
     margin: 5px;
     border: 1px solid #8bb5ff;

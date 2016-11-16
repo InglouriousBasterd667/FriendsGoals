@@ -1,17 +1,18 @@
 ﻿@model FriendsGoals.Models.ChatModel
-
-<div class="dialog-element">
-    @if (Model.Users.First().Files.Any(f => f.FileType == FileType.Avatar))
-    {
-        <a href="#"><img class="interlocutor-image" src="~/File?id=@Model.Users.First().Files.First(f => f.FileType == FileType.Avatar).FileId" alt="avatar" width="50" height="50" /></a>
-    }
-    <p class="interlocutor-name">@Model.Users.First().Name @Model.Users.First().UserSurname</p>
-    @{
-        string text = Model.Messages.First().Text;
-        if (text.Length > 100)
+<a class="user-link" href="@Url.Action("Chat", "Page", new { userID = Model.Users.Last().Id, message = "" }, null)">
+    <div class="dialog-element">
+        @if (Model.Users.Last().Files.Any(f => f.FileType == FileType.Avatar))
         {
-            text = text.Substring(0, 100);
+            <img class="interlocutor-image" src="~/File?id=@Model.Users.Last().Files.First(f => f.FileType == FileType.Avatar).FileId" alt="avatar" width="50" height="50" />
         }
-        <p class="last-message">@text</p>
-    }
-</div>
+        <p class="interlocutor-name">@Model.ChatName</p>
+        @{
+            string text = Model.Messages.Last().Text;
+            if (text.Length > 100)
+            {
+                text = text.Substring(0, 100);
+            }
+            <p class="last-message">@text</p>
+        }
+    </div>
+</a>

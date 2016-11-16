@@ -10,6 +10,7 @@ namespace FriendsGoals.Models
 	{
 		[Key]
 		public int chatID { get; set; }
+		public string ChatName { get; set; }
 		public ICollection<AppUser> Users { get; set; }
 		public ICollection<ChatMessage> Messages { get; set; }
 	}

@@ -214,6 +214,7 @@
     <Content Include="Views\Page\FollowersList.cshtml" />
     <Content Include="Views\Page\FollowingList.cshtml" />
     <Content Include="Views\Page\Edit.cshtml" />
+    <Content Include="Views\Page\Chat.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

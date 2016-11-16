@@ -1,0 +1,95 @@
+﻿@model FriendsGoals.Models.ChatModel
+@{
+    AppUser interlocutor = Model.Users.Last();
+    ViewBag.Title = interlocutor.Name + " " + interlocutor.UserSurname + " - Chat";
+}
+<html>
+<head>
+    <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/scripts/jquery-1.10.2.js"></script>
+    <script>
+        //при успешном входе загружаем сообщения
+        function initChat() {
+
+            Scroll();
+            ShowLastRefresh();
+
+            //каждые пять секунд обновляем чат
+            setTimeout("Refresh();", 5000);
+
+            //отправка сообщений по нажатию Enter
+            $('#txtMessage').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    $("#btnMessage").click();
+                }
+            });
+
+            //установка обработчика нажатия кнопки для отправки сообщений
+            $("#btnMessage").click(function () {
+                var text = $("#txtMessage").val();
+                if (text) {
+                    //обращаемся к методу Index и передаем параметр "chatMessage"
+                    var href = "/Page/Messages?user=" + @Model.Users.First().Id;
+                    href = href + "&message=" + encodeURIComponent(text);
+                    $("#ActionLink").attr("href", href).click();
+                }
+            });
+        }
+
+        // каждые пять секунд обновляем поле чата
+        function Refresh() {
+            var href = "/Page/Chat?user=" + @Model.Users.First().Id;
+
+            $("#ActionLink").attr("href", href).click();
+            setTimeout("Refresh();", 5000);
+        }
+
+        //Отображаем сообщение об ошибке
+        function ChatOnFailure(result) {
+            $("#Error").text(result.responseText);
+            setTimeout("$('#Error').empty();", 2000);
+        }
+
+        // при успешном получении ответа с сервера
+        function ChatOnSuccess(result) {
+            Scroll();
+            ShowLastRefresh();
+        }
+
+        //скролл к низу окна
+        function Scroll() {
+            var win = $('#Messages');
+            var height = win[0].scrollHeight;
+            win.scrollTop(height);
+        }
+
+        //отображение времени последнего обновления чата
+        function ShowLastRefresh() {
+            var dt = new Date();
+            var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+            $("#LastRefresh").text("Последнее обновление было в " + time);
+        }
+    </script>
+</head>
+<body onload="initChat()">
+    <h2>Chat with @interlocutor.Name @interlocutor.UserSurname</h2>
+
+    <div class="message-field" id="dialogArea">
+        Html.RenderPartial("History", Model)
+    </div>
+
+    <div id="inputForm">
+        <table>
+            <tr>
+                <td rowspan="2"><textarea id="txtMessage" rows="3"></textarea></td>
+                <td><button id="btnMessage" value="Отправить">Отправить</button></td>
+            </tr>
+        </table>
+    </div>
+
+    @Ajax.ActionLink("ActionLink", "Chat", new { chat = Model, user = "", message = "" },
+    new AjaxOptions { UpdateTargetId = "message-field", OnSuccess = "ChatOnSuccess", OnFailure = "ChatOnFailure" },
+    new { @id = "ActionLink", @style = "visibility:hidden;" })
+</body>
+</html>

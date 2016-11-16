@@ -1,12 +1,6 @@
 ﻿@using FriendsGoals.Models
 @model ChatModel
-<div id="Users">
-    <p><b>В чате онлайн: @Model.Users.Count</b></p>
-    @foreach (ChatUser user in Model.Users)
-    {
-        <p>@user.Name</p>
-    }
-</div>
+
 <div id="Messages">
     @foreach (ChatMessage msg in Model.Messages)
     {

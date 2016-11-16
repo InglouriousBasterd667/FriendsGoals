@@ -19,14 +19,11 @@
             <hr />
             Html.RenderPartial("Dialog", dialog);
         }
-        <hr />
+        <hr />  
     }
     else
     {
         <p class="no-msg">You have no messages.</p>
     }
-    @Ajax.ActionLink("Login", "Messages", new { user = "" },
-        new AjaxOptions { UpdateTargetId = "container", OnFailure = "LoginOnFailure", OnSuccess = "LoginOnSuccess" },
-        new { @id = "LoginButton" })
 </body>
 </html>

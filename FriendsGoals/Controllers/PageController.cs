@@ -15,6 +15,7 @@ namespace FriendsGoals.Controllers
     public class PageController : AppController
     {
         private readonly UserManager<AppUser> userManager;
+		private static ChatModel currentChat;
 
         public PageController() : this(Startup.UserManagerFactory.Invoke())
         {
@@ -164,33 +165,51 @@ namespace FriendsGoals.Controllers
 
 		public ActionResult Messages()
 		{
-			userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name).Dialogs = new List<ChatModel>();
+			AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
+			AppUser friend = currentUser.Friends.First();
+			currentUser.Dialogs = new List<ChatModel>();
+			friend.Dialogs = new List<ChatModel>();
 
 			ChatModel chat1 = new ChatModel();
 			chat1.chatID = 1;
+			chat1.ChatName = friend.Name + " " + friend.UserSurname;
 			chat1.Users = new List<AppUser>();
-			chat1.Users.Add(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
+			chat1.Users.Add(currentUser);
+			chat1.Users.Add(friend);
 			chat1.Messages = new List<ChatMessage>();
-			chat1.Messages.Add(new ChatMessage { Date = DateTime.Now, messageID = 1, Text = "FirstMessage", User = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name) });
-			userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name).Dialogs.Add(chat1);
+			chat1.Messages.Add(new ChatMessage { Date = DateTime.Now, messageID = 1, Text = "FirstMessage", User = currentUser });
 
 			ChatModel chat2 = new ChatModel();
-			chat2.chatID = 2;
-			chat2.Users = new List<AppUser>();
-			chat2.Users.Add(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
-			chat2.Messages = new List<ChatMessage>();
-			chat2.Messages.Add(new ChatMessage { Date = DateTime.Now, messageID = 2, Text = "SecondMessage", User = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name) });
-			userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name).Dialogs.Add(chat2);
+			chat1.chatID = 2;
+			chat1.ChatName = currentUser.Name + " " + currentUser.UserSurname;
+			chat1.Users = new List<AppUser>();
+			chat1.Users.Add(friend);
+			chat1.Users.Add(currentUser);
+			chat1.Messages = new List<ChatMessage>();
+			chat1.Messages.Add(new ChatMessage { Date = DateTime.Now, messageID = 1, Text = "FirstMessage", User = currentUser });
 
-			ChatModel chat3 = new ChatModel();
-			chat3.chatID = 3;
-			chat3.Users = new List<AppUser>();
-			chat3.Users.Add(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
-			chat3.Messages = new List<ChatMessage>();
-			chat3.Messages.Add(new ChatMessage { Date = DateTime.Now, messageID = 3, Text = "ThirdMessage", User = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name) });
-			userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name).Dialogs.Add(chat3);
+			currentUser.Dialogs.Add(chat1);
+			friend.Dialogs.Add(chat2);
 
-			return View(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
+			userManager.Update(currentUser);
+			userManager.Update(friend);
+
+			return View(currentUser);
+		}
+
+		public ActionResult Chat(string userID, string message)
+		{
+			if (!Request.IsAjaxRequest())
+			{
+				AppUser interlocutor = userManager.Users.FirstOrDefault(x => x.Id == userID);
+				AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
+				currentChat = currentUser.Dialogs.FirstOrDefault(x => x.Users.Last() == interlocutor);
+				return View(currentChat);
+			}
+			else
+			{
+				return View(currentChat);
+			}
 		}
 
 		/*public ActionResult Messages(string user, bool? logOn, bool? logOff, string chatMessage)

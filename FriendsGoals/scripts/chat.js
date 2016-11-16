@@ -1,21 +1,5 @@
-﻿$(document).ready(function () {
-    // логин
-    $("#btnLogin").click(function () {
-        var nickName = $("#txtUserName").val();
-        if (nickName) {
-            // формируем ссылку с параметрами, по которой идет обращение
-            var href = "/Page/Messages?user=" + encodeURIComponent(nickName);
-            href = href + "&logOn=true";
-            $("#LoginButton").attr("href", href).click();
-
-            //установка поля с ником пользователя
-            $("#Username").text(nickName);
-        }
-    });
-});
-
-//при успешном входе загружаем сообщения
-function LoginOnSuccess(result) {
+﻿//при успешном входе загружаем сообщения
+function initChat() {
 
     Scroll();
     ShowLastRefresh();
@@ -55,16 +39,9 @@ function LoginOnSuccess(result) {
     });
 }
 
-//при ошибке отображаем сообщение об ошибке при логине
-function LoginOnFailure(result) {
-    $("#Username").val("");
-    $("#Error").text(result.responseText);
-    setTimeout("$('#Error').empty();", 2000);
-}
-
 // каждые пять секунд обновляем поле чата
 function Refresh() {
-    var href = "/Page/Messages?user=" + encodeURIComponent($("#Username").text());
+    var href = "/Page/Chat?user=" + encodeURIComponent($("#Username").text());
 
     $("#ActionLink").attr("href", href).click();
     setTimeout("Refresh();", 5000);
