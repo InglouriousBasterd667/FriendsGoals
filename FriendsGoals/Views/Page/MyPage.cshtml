@@ -7,7 +7,7 @@
 @{
 //model surname doesnt work
 }
-<div class="full-name text-info"><p>@CurrentUser.GivenName @CurrentUser.Surname</p>
+<div class="full-name text-info"><p>@Model.Name @Model.UserSurname</p>
 
 </div>
 <div class="user-info-block">
@@ -20,10 +20,11 @@
     }
     </div>    
     <div class="user-info user-info-part">
-        <p>Phone: @CurrentUser.Phone</p>
-        <p>Sex: @CurrentUser.Sex</p>
+        <p>Phone: @Model.Phone</p>
+        <p>Sex: @Model.Sex</p>
         @Html.ActionLink("Friends", "MyFriends", "Page", null, new { @class = "btnSide" })
         <p>Followers: @Model.Followers.Count</p>
+        @Html.ActionLink("Edit","Edit","Page", null, new { @class = "btnSide"})
     </div>
 </div>
 

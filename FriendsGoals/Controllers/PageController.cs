@@ -7,6 +7,8 @@ using FriendsGoals.Models;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity;
 
 namespace FriendsGoals.Controllers
 {
@@ -24,6 +26,49 @@ namespace FriendsGoals.Controllers
 		}
 
         public ActionResult MyPage() => View(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
+
+        public ActionResult Edit() => View(userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name));
+
+        [HttpPost]
+        public ActionResult Edit(HttpPostedFileBase upload)
+        {
+            AppDbContext db = new AppDbContext();
+            AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
+            if(TryUpdateModel(currentUser,"",new string[] {"Name","UserSurname", "Phone" })){
+                try
+                {
+                    if (upload != null && upload.ContentLength > 0)
+                    {
+                        db.Configuration.ValidateOnSaveEnabled = false;
+                        if (currentUser.Files.Any(f => f.FileType == FileType.Avatar))
+                        {
+                            // db.Files.Remove(currentUser.Files.First(f => f.FileType == FileType.Avatar));
+                            //var file = currentUser.Files.First(f => f.FileType == FileType.Avatar);
+                            //db.Entry(file).State = EntityState.Deleted;
+                            //db.SaveChanges();
+                        }
+                        var avatar = new File
+                        {
+                            FileName = System.IO.Path.GetFileName(upload.FileName),
+                            FileType = FileType.Avatar,
+                            ContentType = upload.ContentType
+                        };
+                        using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                        {
+                            avatar.Content = reader.ReadBytes(upload.ContentLength);
+                        }
+                        currentUser.Files = new List<File> { avatar };
+                        userManager.Update(currentUser);
+                        return RedirectToAction("MyPage");
+                    }
+                }
+                catch(RetryLimitExceededException)
+                {
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            return View();
+        }
 
         public ActionResult ShowUser(string id) => View(userManager.Users.FirstOrDefault(x=> x.Id == id));
 
@@ -111,16 +156,7 @@ namespace FriendsGoals.Controllers
 
 			return RedirectToAction("MyFriends", new { pressedElement = "elem1" });
 		}
-        public async System.Threading.Tasks.Task<ActionResult> AddFriend(string id)
-        {
-            AppUser currentUser = userManager.Users.FirstOrDefault(x => x.UserName == CurrentUser.Name);
-            AppUser friend = userManager.Users.FirstOrDefault(x => x.Id == id);
-            currentUser.Friends.Add(friend);
-            AppDbContext userDbContext = new AppDbContext();
-            userDbContext.Entry(CurrentUser).State = System.Data.Entity.EntityState.Modified;
-            await userDbContext.SaveChangesAsync();
-            return RedirectToAction("MyFriends");
-        }
+
 
         public ActionResult AllUsers() => View(userManager.Users);
 

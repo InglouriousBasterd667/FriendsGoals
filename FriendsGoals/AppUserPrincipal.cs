@@ -25,7 +25,6 @@ namespace FriendsGoals
 			{
 				return FindFirst(ClaimTypes.Surname).Value;
 			}
-
 		}
 
 		public string GivenName
@@ -34,7 +33,6 @@ namespace FriendsGoals
 			{
 				return FindFirst(ClaimTypes.GivenName).Value;
 			}
-
 		}
 
 		public string Phone
