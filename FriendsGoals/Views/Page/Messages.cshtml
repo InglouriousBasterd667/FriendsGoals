@@ -14,8 +14,11 @@
     {
         foreach (FriendsGoals.Models.ChatModel dialog in Model.Dialogs)
         {
-            <hr />
-            Html.RenderPartial("Dialog", dialog);
+            if (dialog.ChatName != (Model.Name + " " + Model.UserSurname))
+            {
+                <hr />
+                Html.RenderPartial("Dialog", dialog);
+            }
         }
         <hr />  
     }

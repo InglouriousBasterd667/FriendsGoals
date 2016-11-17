@@ -20,7 +20,7 @@
     </div>
     <div class="user-info user-info-part">
         <p>Phone: @Model.Phone</p>
-        <p>Sex: @(Model.Sex ? "Male" : "Female")</p>
+        <p>Sex: @Model.Sex</p>
         @Html.ActionLink("Friends", "Friends", "Page", new { id = Model.Id }, new { @class = "btnSide" })
         <p>Followers: @Model.Followers.Count</p>
     </div>
